@@ -51,13 +51,11 @@ export default class DefineSLOForm extends Component {
 
   refreshLists = async () => {
     this.setState({ isProcessing: true });
-
     const {
       slo: { entityGuid, indicator }
     } = this.props;
-
-    await this.getEntityInformation(entityGuid);
-    const tags = await this.fetchEntityTags(entityGuid);
+  const data=  await this.getEntityInformation(entityGuid);
+const tags = await this.fetchEntityTags(entityGuid);
 
     if (indicator === 'error_budget' || indicator === 'latency_budget') {
       await this.fetchEntityTransactions();
@@ -432,29 +430,14 @@ export default class DefineSLOForm extends Component {
               .max(100, "Target must be positive number and can't exceed 100")
               .required('Target is required'),
             indicator: Yup.string().required('Indicator is required'),
-            alerts: Yup.array().when('indicator', {
-              is: indicator => indicator.matches(/budget/) === true,
-              otherwise: Yup.array().min(
+            defects: Yup.array().min(
                 1,
                 'At least one alert must be selected'
-              )
-            }),
-            transactions: Yup.array().when('indicator', {
-              is: indicator => indicator.matches(/budget/) === true,
-              then: Yup.array().min(
-                1,
-                'At least one transaction must be selected'
-              )
-            }),
-            defects: Yup.array().when('indicator', {
-              is: indicator => indicator.matches(/budget/) === true,
-              then: Yup.array().min(1, 'At least one defect must be selected')
-            })
+            )
           })}
           onSubmit={async (values, { resetForm }) => {
             this.setState({ isProcessing: true });
             const { entityDetails } = this.state;
-
             const newDocument = {
               ...values,
               entityGuid: entityDetails.entityGuid,
@@ -463,9 +446,8 @@ export default class DefineSLOForm extends Component {
               language: entityDetails.language,
               appName: entityDetails.appName
             };
-
             await this.writeNewSloDocument(newDocument);
-            this.setState({ isProcessing: false });
+            this.setState({isProcessing: false});
 
             onSave();
             resetForm();

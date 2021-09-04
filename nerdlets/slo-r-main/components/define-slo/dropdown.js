@@ -23,10 +23,9 @@ export default class Dropdown extends Component {
     }
   }
 
-  handleOnSearch(text) {
-    let search = text;
+  handleOnSearch(searchText) {
+    let search = searchText;
     let items;
-
     if (search) {
       search = search.toLowerCase();
       items = this.props.items.filter(item =>

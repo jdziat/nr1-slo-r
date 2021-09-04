@@ -70,7 +70,6 @@ export default class DefineFlowForm extends Component {
             const newFlow = {
               ...values
             };
-
             await this.writeNewFlowDocument(newFlow);
             this.setState({ isProcessing: false });
 

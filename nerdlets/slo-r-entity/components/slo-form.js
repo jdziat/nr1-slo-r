@@ -164,7 +164,6 @@ export default class SloForm extends React.Component {
 
   async _updateAlertConfig() {
     const { entityDetails, document } = this.state;
-
     if (entityDetails && document.alerts.length < 1) {
       const __query = `{
             actor {
@@ -236,7 +235,6 @@ export default class SloForm extends React.Component {
       );
       return;
     }
-
     if (selectedTags.length > 0) {
       delete currentDocument.slogroup;
     }

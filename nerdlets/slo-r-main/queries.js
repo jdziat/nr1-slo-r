@@ -21,7 +21,7 @@ export const getTags = async guid => {
 export const getEntities = async () => {
   const query = `{
     actor {
-      entitySearch(queryBuilder: {tags: {key: "slor", value: "true"}, domain: APM, type: APPLICATION}) {
+      entitySearch(queryBuilder: {domain: APM, type: APPLICATION}) {
         count
         query
         results {
@@ -66,7 +66,7 @@ const getCursorEntities = async _cursorId => {
   while (gotCursor) {
     query = `{
       actor {
-        entitySearch(queryBuilder: {tags: {key: "slor", value: "true"}, domain: APM, type: APPLICATION}) {
+        entitySearch(queryBuilder: { domain: APM, type: APPLICATION}) {
           count
           query
           results(cursor: "${cursorId}") {

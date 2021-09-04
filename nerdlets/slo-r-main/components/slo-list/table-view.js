@@ -11,6 +11,9 @@ import SettingsMenu from './settings-menu';
 
 export default class TableView extends Component {
   formatterDescription = cell => {
+    if(cell === ''){
+      cell = 'N/A'
+    }
     if (cell !== undefined) {
       return <Tooltip text={cell}>{cell}</Tooltip>;
     }
@@ -217,7 +220,9 @@ export default class TableView extends Component {
     ];
 
     const rowEvents = {
-      onClick: (e, row, rowIndex) => this.updateSloDocument(e, row, rowIndex)
+      onClick: (e, row, rowIndex) => {
+        return this.updateSloDocument(e, row, rowIndex);
+      }
     };
 
     return (

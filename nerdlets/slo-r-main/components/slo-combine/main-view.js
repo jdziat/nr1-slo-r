@@ -26,16 +26,15 @@ export default class MainView extends Component {
 
   componentDidMount = async () => {
     try {
-      const { data } = await UserStorageQuery.query({
+      const {data} = await UserStorageQuery.query({
         collection: SLO_COLLECTION_KEY,
         documentId: SLO_DOCUMENT_ID
       });
-
       this.setState({
         aggregatedIds: data.selectedIds,
         selectedSlosIds: data.selectedIds
       });
-    } finally {
+    }finally {
       this.setState({
         isProcessing: false
       });
