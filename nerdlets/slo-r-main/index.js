@@ -86,49 +86,49 @@ export default class SLOR extends Component {
   };
 
   fetchSlos = async entities => {
-      let slos = [];
+    let slos = [];
 
-      const promises = entities.map(({guid: entityGuid}) => {
-        return fetchSloDocuments({entityGuid});
-      });
+    const promises = entities.map(({ guid: entityGuid }) => {
+      return fetchSloDocuments({ entityGuid });
+    });
 
-      const results = await Promise.all(promises);
+    const results = await Promise.all(promises);
 
-      results.forEach(result =>  slos.push(...result));
+    results.forEach(result => slos.push(...result));
 
-      slos = slos.sort((a, b) =>
-          a.document.indicator > b.document.indicator ? 1 : -1
-      );
+    slos = slos.sort((a, b) =>
+      a.document.indicator > b.document.indicator ? 1 : -1
+    );
 
-      this.setState({
-        slos,
-        lastUpdateDate: new Date(),
-        isLoaded: true
-      });
+    this.setState({
+      slos,
+      lastUpdateDate: new Date(),
+      isLoaded: true
+    });
   };
 
   fetchAlertPolicies = async entities => {
     const policies = [];
 
     const promises = [...new Set(entities.map(e => e.accountId))].map(
-        accountId => {
-          return getAlertPolicies(accountId);
-        }
+      accountId => {
+        return getAlertPolicies(accountId);
+      }
     );
 
     const results = await Promise.all(promises);
 
     results.forEach(result => policies.push(...result));
 
-    this.setState({alertPolicies: policies});
+    this.setState({ alertPolicies: policies });
   };
 
   handleEditSLO = slo => {
-      this.setState({ sloToBeEdited: slo.document, isCreateModalActive: true });
+    this.setState({ sloToBeEdited: slo.document, isCreateModalActive: true });
   };
 
   handleDefineNewSLO = () => {
-      this.setState({ isCreateModalActive: true });
+    this.setState({ isCreateModalActive: true });
   };
 
   removeFromList = slo => {
@@ -248,7 +248,7 @@ export default class SLOR extends Component {
                     isTableViewActive ? 'active' : ''
                   }`}
                   onClick={() => {
-                    this.setState({isTableViewActive: true})
+                    this.setState({ isTableViewActive: true });
                   }}
                 >
                   <Icon

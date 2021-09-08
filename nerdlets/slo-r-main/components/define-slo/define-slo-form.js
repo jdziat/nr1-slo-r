@@ -54,8 +54,8 @@ export default class DefineSLOForm extends Component {
     const {
       slo: { entityGuid, indicator }
     } = this.props;
-  const data=  await this.getEntityInformation(entityGuid);
-const tags = await this.fetchEntityTags(entityGuid);
+    await this.getEntityInformation(entityGuid);
+    const tags = await this.fetchEntityTags(entityGuid);
 
     if (indicator === 'error_budget' || indicator === 'latency_budget') {
       await this.fetchEntityTransactions();
@@ -430,10 +430,7 @@ const tags = await this.fetchEntityTags(entityGuid);
               .max(100, "Target must be positive number and can't exceed 100")
               .required('Target is required'),
             indicator: Yup.string().required('Indicator is required'),
-            defects: Yup.array().min(
-                1,
-                'At least one alert must be selected'
-            )
+            defects: Yup.array().min(1, 'At least one alert must be selected')
           })}
           onSubmit={async (values, { resetForm }) => {
             this.setState({ isProcessing: true });
@@ -447,7 +444,7 @@ const tags = await this.fetchEntityTags(entityGuid);
               appName: entityDetails.appName
             };
             await this.writeNewSloDocument(newDocument);
-            this.setState({isProcessing: false});
+            this.setState({ isProcessing: false });
 
             onSave();
             resetForm();

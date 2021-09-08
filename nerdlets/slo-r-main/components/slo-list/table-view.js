@@ -11,8 +11,8 @@ import SettingsMenu from './settings-menu';
 
 export default class TableView extends Component {
   formatterDescription = cell => {
-    if(cell === ''){
-      cell = 'N/A'
+    if (cell === '') {
+      cell = 'N/A';
     }
     if (cell !== undefined) {
       return <Tooltip text={cell}>{cell}</Tooltip>;
